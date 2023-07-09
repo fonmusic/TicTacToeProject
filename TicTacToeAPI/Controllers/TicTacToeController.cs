@@ -19,7 +19,7 @@ namespace TicTacToeAPI.Controllers
         [HttpPost("StartNewGame")]
         public async Task<ActionResult<int>> StartNewGame()
         {
-            var game = new TicTacToeGame();
+            var game = new Game();
             _dbContext.Add(game);
             await _dbContext.SaveChangesAsync();
             return game.Id;
@@ -28,7 +28,7 @@ namespace TicTacToeAPI.Controllers
         [HttpGet("{id}/GetBoard")]
         public IActionResult GetBoard(int id)
         {
-            var game = _dbContext.Find<TicTacToeGame>(id);
+            var game = _dbContext.Find<Game>(id);
             if (game == null)
             {
                 return NotFound();

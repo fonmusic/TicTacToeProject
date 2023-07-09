@@ -1,14 +1,13 @@
 ﻿using TicTacToeAPI.Dtos;
-
 namespace TicTacToeAPI.Models;
-public class TicTacToeGame
+public class Game
 {
     public int Id { get; set; }
     private const int _boardSize = 3;
     private readonly char[,] _board = new char[_boardSize, _boardSize];
     private char _currentPlayer;
 
-    public TicTacToeGame()
+    public Game()
     {
         // Initialize the game board with empty cells
         for (var i = 0; i < _boardSize; i++)
@@ -91,7 +90,6 @@ public class TicTacToeGame
                 }
             }
         }
-
         // The board is full, so the game is a draw
         return true;
     }

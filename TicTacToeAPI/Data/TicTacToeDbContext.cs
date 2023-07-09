@@ -10,7 +10,7 @@ public class TicTacToeDbContext : DbContext
     {
     }
 
-    public DbSet<TicTacToeGame> Games { get; set; }
+    public DbSet<Game> Games { get; set; }
 
 
 }
