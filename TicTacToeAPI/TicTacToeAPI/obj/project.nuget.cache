@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8O+vFhDpPnwXjw371P5tIPMIaQHVWqk4hxZUkDZr0vqrhT3TBzSeG8deF8TDDf0HutfJ5A5Ms6gkyDrAz+y2LA==",
+  "dgSpecHash": "RiWFPqLs7Xi6Vm6uQN25qNeonmIufIoltf9ZdN4ctzIOcrrpnX2fDd4AzZm1Noizp4drcwdOl/uhKtWVtsXm/A==",
   "success": true,
-  "projectFilePath": "/Users/dmitrii/MyRepo/TicTacToeAPI/TicTacToeAPI/TicTacToeAPI/TicTacToeAPI.csproj",
+  "projectFilePath": "/Users/dmitrii/VSC/TicTacToeProject/TicTacToeAPI/TicTacToeAPI/TicTacToeAPI.csproj",
   "expectedPackageFiles": [
     "/Users/dmitrii/.nuget/packages/microsoft.entityframeworkcore/6.0.15/microsoft.entityframeworkcore.6.0.15.nupkg.sha512",
     "/Users/dmitrii/.nuget/packages/microsoft.entityframeworkcore.abstractions/6.0.15/microsoft.entityframeworkcore.abstractions.6.0.15.nupkg.sha512",

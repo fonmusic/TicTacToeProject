@@ -1041,11 +1041,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/dmitrii/MyRepo/TicTacToeAPI/TicTacToeAPI/TicTacToeAPI/TicTacToeAPI.csproj",
+      "projectUniqueName": "/Users/dmitrii/VSC/TicTacToeProject/TicTacToeAPI/TicTacToeAPI/TicTacToeAPI.csproj",
       "projectName": "TicTacToeAPI",
-      "projectPath": "/Users/dmitrii/MyRepo/TicTacToeAPI/TicTacToeAPI/TicTacToeAPI/TicTacToeAPI.csproj",
+      "projectPath": "/Users/dmitrii/VSC/TicTacToeProject/TicTacToeAPI/TicTacToeAPI/TicTacToeAPI.csproj",
       "packagesPath": "/Users/dmitrii/.nuget/packages/",
-      "outputPath": "/Users/dmitrii/MyRepo/TicTacToeAPI/TicTacToeAPI/TicTacToeAPI/obj/",
+      "outputPath": "/Users/dmitrii/VSC/TicTacToeProject/TicTacToeAPI/TicTacToeAPI/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/dmitrii/.nuget/NuGet/NuGet.Config"
@@ -1054,6 +1054,7 @@
         "net6.0"
       ],
       "sources": {
+        "/usr/local/share/dotnet/sdk/7.0.304/Sdks/Microsoft.NET.Sdk.Web/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1100,7 +1101,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.202/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.304/RuntimeIdentifierGraph.json"
       }
     }
   }
