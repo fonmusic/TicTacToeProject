@@ -1,4 +1,8 @@
+global using AutoMapper;
 global using TicTacToeAPI.Models;
+global using TicTacToeAPI.Dtos.Game;
+global using TicTacToeAPI.Services;
+global using TicTacToeLibrary;
 
 var builder = WebApplication.CreateBuilder(args);
 

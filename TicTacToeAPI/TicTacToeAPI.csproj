@@ -10,5 +10,9 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.8"/>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.8"/>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.8"/>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1"/>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TicTacToeLibrary\TicTacToeLibrary.csproj"/>
   </ItemGroup>
 </Project>
