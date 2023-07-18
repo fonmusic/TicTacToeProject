@@ -1,5 +1,6 @@
-﻿namespace TicTacToeAPI.Models;
-public class Game
+namespace TicTacToeAPI.Dtos.Game;
+
+public class GetGameDto
 {
     public int Id { get; set; }
     public required char[] Board { get; set; }

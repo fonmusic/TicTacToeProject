@@ -1,5 +1,4 @@
-using Microsoft.EntityFrameworkCore;
-using TicTacToeAPI.Data;
+global using TicTacToeAPI.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
