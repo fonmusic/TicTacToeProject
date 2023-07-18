@@ -2,8 +2,6 @@ namespace TicTacToeAPI.Services;
 
 public class GameService : IGameService
 {
-    // private static List<Game> games = new();
-
     private readonly IMapper _mapper;
     private readonly DataContext _context;
 
