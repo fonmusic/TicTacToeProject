@@ -2,17 +2,20 @@ namespace TicTacToeAPI.Services;
 
 public class GameService : IGameService
 {
-    private static List<Game> games = new();
+    // private static List<Game> games = new();
 
     private readonly IMapper _mapper;
+    private readonly DataContext _context;
 
-    public GameService(IMapper mapper)
+    public GameService(IMapper mapper, DataContext context)
     {
+        _context = context;
         _mapper = mapper;
     }
 
     public async Task<ServiceResponse<List<GetGameDto>>> GetAllGames()
     {
+        var games = await _context.Games.ToListAsync();
         var serviceResponse = new ServiceResponse<List<GetGameDto>>
         {
             Data = _mapper.Map<List<GetGameDto>>(games),
@@ -24,7 +27,7 @@ public class GameService : IGameService
     public async Task<ServiceResponse<GetGameDto>> GetGameById(int id)
     {
         var serviceResponse = new ServiceResponse<GetGameDto>();
-        var game = games.FirstOrDefault(g => g.Id == id);
+        var game = await _context.Games.FirstOrDefaultAsync(g => g.Id == id);
         if (game is null)
         {
             serviceResponse.Success = false;
@@ -37,18 +40,22 @@ public class GameService : IGameService
     }
 
     public async Task<ServiceResponse<GetGameDto>> StartNewGame(StartNewGameDto newGame)
-    {
+    {   
         var serviceResponse = new ServiceResponse<GetGameDto>();
-        games.Add(_mapper.Map<Game>(newGame));
-        serviceResponse.Data = _mapper.Map<GetGameDto>(games.Last());
-        serviceResponse.Message = $"Game created.";
+        
+        var game = _mapper.Map<Game>(newGame);
+        await _context.Games.AddAsync(game);
+        await _context.SaveChangesAsync();
+        
+        serviceResponse.Data = _mapper.Map<GetGameDto>(game);
+        serviceResponse.Message = $"New game started.";
         return serviceResponse;
     }
 
     public async Task<ServiceResponse<GetGameDto>> UpdateGame(UpdateGameDto updatedGame)
     {
         var serviceResponse = new ServiceResponse<GetGameDto>();
-        var game = games.FirstOrDefault(g => g.Id == updatedGame.Id);
+        var game = await _context.Games.FirstOrDefaultAsync(g => g.Id == updatedGame.Id);
         if (game is null)
         {
             serviceResponse.Success = false;
@@ -76,6 +83,7 @@ public class GameService : IGameService
         game.Winner = ticTacToeGame.Winner;
         game.GameState = (GameState)ticTacToeGame.GameState;
 
+        await _context.SaveChangesAsync();
 
         serviceResponse.Data = _mapper.Map<GetGameDto>(game);
         if (game.Winner != string.Empty)
