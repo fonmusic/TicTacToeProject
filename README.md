@@ -1,10 +1,23 @@
-TicTacToeAPI позволяет клиентам создавать игры в крестики-нолики и управлять ими. API предоставляет конечные точки для запуска новой игры, извлечения игровых полей и проверки статуса игры, а также совершения хода .
+# Tic Tac Toe API
 
-Чтобы начать новую игру, клиенты могут отправить POST-запрос на конечную точку TicTacToe/StartNewGame. API создаст новую игру и вернет идентификатор игры.
+The Tic Tac Toe API is a web service that allows users to play Tic Tac Toe games. It provides endpoints for managing Tic Tac Toe games, including starting a new game, retrieving game details, updating game moves, and retrieving a list of all games.
 
-Чтобы получить игровые поля и проверить статус игры, клиенты могут отправить запрос GET на конечную точку TicTacToe/{id}/GetBoard, где {id} - это идентификатор игры. API вернет текущее состояние игровых полей и статус игры в соответствии с логикой содержащейся в enum GameState (чей ход, есть ли победитель, есть ли состояние ничьи).
+## Development of the current version of the project  
+https://github.com/fonmusic/TicTacToeProject/tree/ver2.0
 
-Чтобы сделать ход, клиенты могут отправить POST-запрос на конечную точку TicTacToe/{id}/makeMove, где {id} - это идентификатор игры. Клиенты должны включать строку и столбец перемещения в тело запроса в виде объекта MoveDto, закодированного в JSON. API подтвердит ход и обновит игровое поле.
+## Technologies Used
 
-API также возвращает соответствующие коды состояния HTTP, указывающие на успех или неудачу запроса. Например, код статуса 404 Не найден возвращается, если клиент запрашивает игру, которая не существует.
+- .NET Core: A cross-platform, open-source framework for building modern, cloud-based, internet-connected applications.
+- C#: A programming language used for developing applications on the .NET platform.
+- ASP.NET Core: A framework for building web applications on the .NET platform.
+- SQLite: A lightweight, embedded relational database used for storing game data.
+
+## Functionality
+
+The Tic Tac Toe API offers the following functionality:
+
+1. Get All Games: Retrieve a list of all existing Tic Tac Toe games.
+2. Get Game by ID: Retrieve the details of a specific Tic Tac Toe game based on its ID.
+3. Start New Game: Start a new Tic Tac Toe game with an initial game state.
+4. Update Game: Make a move in an existing Tic Tac Toe game, updating the game state.
 
