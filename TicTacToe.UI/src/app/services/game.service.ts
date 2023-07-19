@@ -12,20 +12,21 @@ export class GameService {
 
   constructor(private http: HttpClient) { }
 
-  getAllGames() : Observable<Game[]> {
-    return this.http.get<Game[]>(`${this.apiUrl}/GetAllGames`);
-  } 
+    getAllGames(): Observable<Game[]> {
+      return this.http.get<Game[]>(`${this.apiUrl}/GetAllGames`);
+    }
 
-  getGameById(id: number) : Observable<Game> {
-    return this.http.get<Game>(`${this.apiUrl}/GetGameById/${id}`);
-  }
+    getGameById(id: number): Observable<Game> {
+      return this.http.get<Game>(`${this.apiUrl}/GetGameById/${id}`);
+    }
 
-  startNewGame() : Observable<Game> {
-    return this.http.post<Game>(`${this.apiUrl}/StartNewGame`, null);
-  }
+    startNewGame(): Observable<Game> {
+      return this.http.get<Game>(`${this.apiUrl}/StartNewGame`);
+    }
 
-  updateGame(gameId: number, position: number) : Observable<Game> {
-    return this.http.post<Game>(`${this.apiUrl}/UpdateGame`, { id: gameId, position });
-  }
+    updateGame(id: number, position: number): Observable<Game> {
+      return this.http.get<Game>(`${this.apiUrl}/UpdateGame`);
+    }
+      
     
 }

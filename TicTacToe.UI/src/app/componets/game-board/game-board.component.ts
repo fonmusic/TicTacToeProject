@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Game } from 'src/app/models/game';
+import { Game, GameState } from 'src/app/models/game';
 import { GameService } from 'src/app/services/game.service';
 
 @Component({
@@ -8,28 +8,32 @@ import { GameService } from 'src/app/services/game.service';
   styleUrls: ['./game-board.component.css']
 })
 export class GameBoardComponent implements OnInit {
-  game: Game = new Game();
-  currentPlayer: string = '';
+
+  game: Game = new Game;
   isGameOver = false;
 
   constructor(private gameService: GameService) { }
 
   ngOnInit(): void {
+    this.startNewGame();
   }
 
   startNewGame(): void {
     this.gameService.startNewGame().subscribe(game => {
       this.game = game;
-      this.currentPlayer = game.nextPlayer;
-      this.isGameOver = false;
     });
   }
 
-  // makeMove(position: number): void {
-  //   this.gameService.updateGame(this.game.id, position).subscribe(game => {
-  //     this.game = game;
-  //     this.currentPlayer = game.nextPlayer;
-  //     this.isGameOver = game.gameState !== undefined;
-  //   });
-  // }
+  makeMove(position: number): void {
+    this.gameService.updateGame(this.game.id, position).subscribe(game => {
+      this.game = game;
+    });
+  }
+
+  private checkGameOver(): void {
+    if (this.game.gameState === GameState.Draw || this.game.winner !== '') {
+      this.isGameOver = true;
+    }
+  }
+  
 }
