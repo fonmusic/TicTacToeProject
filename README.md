@@ -11,6 +11,7 @@ https://github.com/fonmusic/TicTacToeProject/tree/ver2.0
 - C#: A programming language used for developing applications on the .NET platform.
 - ASP.NET Core: A framework for building web applications on the .NET platform.
 - SQLite: A lightweight, embedded relational database used for storing game data.
+- Angular: a platform for building web applications using TypeScript.
 
 ## Functionality
 
