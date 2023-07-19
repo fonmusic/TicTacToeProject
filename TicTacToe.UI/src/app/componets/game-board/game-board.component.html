@@ -1,20 +1,19 @@
 <!-- game-board.component.html -->
 <div *ngIf="game">
     <div class="board">
-      <div *ngFor="let cell of game.board; let i = index" class="cell" (click)="makeMove(i)">
-        {{ cell }}
-      </div>
+        <div *ngFor="let cell of game.board; let i = index" class="cell" (click)="makeMove(i)">
+            {{ cell }}
+        </div>
     </div>
-  
+
     <div *ngIf="isGameOver">
-      <div *ngIf="game.winner !== ''">
-        Game over. {{ game.winner }} wins!
-      </div>
-      <div *ngIf="game.gameState === 'Draw'">
-        Game over. Draw!
-      </div>
+        <div *ngIf="game.winner !== ''">
+            Game over. {{ game.winner }} wins!
+        </div>
+        <div *ngIf="game.gameState === 'Draw'">
+            Game over. Draw!
+        </div>
     </div>
-  
+
     <button (click)="startNewGame()">Start New Game</button>
-  </div>
-  
+</div>
