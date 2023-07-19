@@ -1,4 +1,4 @@
-# Tic Tac Toe API
+# TicTacToe Project
 
 The Tic Tac Toe API is a web service that allows users to play Tic Tac Toe games. It provides endpoints for managing Tic Tac Toe games, including starting a new game, retrieving game details, updating game moves, and retrieving a list of all games.
 
