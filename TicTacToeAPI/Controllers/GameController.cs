@@ -9,7 +9,7 @@ public class GameController : ControllerBase
     private readonly IGameService _gameService;
     public GameController(IGameService gameService)
     {
-        this._gameService = gameService;
+        _gameService = gameService;
     }
 
     [HttpGet("GetAllGames")]

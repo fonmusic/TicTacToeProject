@@ -6,5 +6,5 @@ public class StartNewGameDto
     public string Board { get; set; } = EmptyBoard;
     public string NextPlayer { get; set; } = "X";
     public string Winner { get; set; } = string.Empty;
-    public GameState GameState { get; set; } = GameState.XMove;
+    public TicTacToeGameState GameState { get; set; } = TicTacToeGameState.XMove;
 }

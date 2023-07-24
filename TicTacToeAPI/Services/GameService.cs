@@ -13,7 +13,10 @@ public class GameService : IGameService
 
     public async Task<ServiceResponse<List<GetGameDto>>> GetAllGames()
     {
-        var games = await _context.Games.ToListAsync();
+        var games = await _context.Games
+            .Include(g => g.TicTacToe)
+            .ThenInclude(t => t.Description)
+            .ToListAsync();
         var serviceResponse = new ServiceResponse<List<GetGameDto>>
         {
             Data = _mapper.Map<List<GetGameDto>>(games),
@@ -25,7 +28,11 @@ public class GameService : IGameService
     public async Task<ServiceResponse<GetGameDto>> GetGameById(int id)
     {
         var serviceResponse = new ServiceResponse<GetGameDto>();
-        var game = await _context.Games.FirstOrDefaultAsync(g => g.Id == id);
+        var game = await _context.Games
+            .Include(g => g.TicTacToe)
+            .ThenInclude(t => t.Description)
+            .FirstOrDefaultAsync(g => g.Id == id);
+
         if (game is null)
         {
             serviceResponse.Success = false;
@@ -41,7 +48,18 @@ public class GameService : IGameService
     {   
         var serviceResponse = new ServiceResponse<GetGameDto>();
         
-        var game = _mapper.Map<Game>(newGame);
+        var game = _mapper.Map<Game>(newGame); 
+        game.TicTacToe = new TicTacToe
+        {
+            Description = new TicTacToeDescription
+            {   
+                Board = newGame.Board,
+                NextPlayer = newGame.NextPlayer,
+                GameState = newGame.GameState,
+                Winner = newGame.Winner
+            }
+        };
+        
         await _context.Games.AddAsync(game);
         await _context.SaveChangesAsync();
         
@@ -53,7 +71,10 @@ public class GameService : IGameService
     public async Task<ServiceResponse<GetGameDto>> UpdateGame(UpdateGameDto updatedGame)
     {
         var serviceResponse = new ServiceResponse<GetGameDto>();
-        var game = await _context.Games.FirstOrDefaultAsync(g => g.Id == updatedGame.Id);
+        var game = await _context.Games
+            .Include(g => g.TicTacToe) 
+            .ThenInclude(t => t.Description)
+            .FirstOrDefaultAsync(g => g.Id == updatedGame.Id);
         if (game is null)
         {
             serviceResponse.Success = false;
@@ -61,36 +82,23 @@ public class GameService : IGameService
             return serviceResponse;
         }
 
-        var ticTacToeGame = new TicTacToeGame
-        {
-            Board = game.Board,
-            NextPlayer = game.NextPlayer,
-            Winner = game.Winner,
-            GameState = (TicTacToeGameState)game.GameState
-        };
-
-        if (!ticTacToeGame.MakeMove(updatedGame.Position))
+        if (!game.TicTacToe.MakeMove(updatedGame.Position))
         {
             serviceResponse.Success = false;
             serviceResponse.Message = $"Invalid move.";
             return serviceResponse;
         }
 
-        game.Board = ticTacToeGame.Board;
-        game.NextPlayer = ticTacToeGame.NextPlayer;
-        game.Winner = ticTacToeGame.Winner;
-        game.GameState = (GameState)ticTacToeGame.GameState;
-
         await _context.SaveChangesAsync();
 
         serviceResponse.Data = _mapper.Map<GetGameDto>(game);
-        if (game.Winner != string.Empty)
-            serviceResponse.Message = $"Game over. {game.Winner} wins!";
-        else if (game.GameState == GameState.Draw)
+        if (game.TicTacToe.Description.Winner != string.Empty)
+            serviceResponse.Message = $"Game over. {game.TicTacToe.Description.Winner} wins!";
+        else if (game.TicTacToe.Description.GameState == TicTacToeGameState.Draw)
             serviceResponse.Message = $"Game over. Draw!";
-        else if (game.GameState == GameState.XMove)
+        else if (game.TicTacToe.Description.GameState == TicTacToeGameState.XMove)
             serviceResponse.Message = $"X's move.";
-        else if (game.GameState == GameState.OMove)
+        else if (game.TicTacToe.Description.GameState == TicTacToeGameState.OMove)
             serviceResponse.Message = $"O's move.";
         else
             serviceResponse.Message = $"Game updated.";
