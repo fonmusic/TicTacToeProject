@@ -22,38 +22,6 @@ namespace TicTacToeAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("TicTacToeId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TicTacToeId");
-
-                    b.ToTable("Games");
-                });
-
-            modelBuilder.Entity("TicTacToeLibrary.TicTacToe", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("DescriptionId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DescriptionId");
-
-                    b.ToTable("TicTacToe");
-                });
-
-            modelBuilder.Entity("TicTacToeLibrary.TicTacToeDescription", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Board")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -71,29 +39,7 @@ namespace TicTacToeAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TicTacToeDescription");
-                });
-
-            modelBuilder.Entity("TicTacToeAPI.Models.Game", b =>
-                {
-                    b.HasOne("TicTacToeLibrary.TicTacToe", "TicTacToe")
-                        .WithMany()
-                        .HasForeignKey("TicTacToeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("TicTacToe");
-                });
-
-            modelBuilder.Entity("TicTacToeLibrary.TicTacToe", b =>
-                {
-                    b.HasOne("TicTacToeLibrary.TicTacToeDescription", "Description")
-                        .WithMany()
-                        .HasForeignKey("DescriptionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Description");
+                    b.ToTable("Games");
                 });
 #pragma warning restore 612, 618
         }

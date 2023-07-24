@@ -2,7 +2,6 @@ namespace TicTacToeLibrary;
 
 public class TicTacToe
 {
-    public int Id { get; set; }
     public TicTacToeDescription Description { get; set; } = new();
     public bool MakeMove(int position)
     {

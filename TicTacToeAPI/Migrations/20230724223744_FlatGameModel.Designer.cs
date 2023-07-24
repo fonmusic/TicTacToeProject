@@ -10,8 +10,8 @@ using TicTacToeAPI.Data;
 namespace TicTacToeAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230718133522_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230724223744_FlatGameModel")]
+    partial class FlatGameModel
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
