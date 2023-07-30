@@ -12,8 +12,18 @@ public class AutoMapperProfile : Profile
                     NextPlayer = src.NextPlayer,
                     Winner = src.Winner,
                     GameState = src.GameState
-                }));;
+                }));
         CreateMap<StartNewGameDto, Game>();
         CreateMap<UpdateGameDto, Game>();
+        CreateMap<Game,TicTacToe>().
+            ForMember(dest => dest.Description, opt => opt.MapFrom(src =>
+                new TicTacToeDescription
+                {
+                    Board = src.Board,
+                    NextPlayer = src.NextPlayer,
+                    Winner = src.Winner,
+                    GameState = src.GameState
+                }));
+        CreateMap<TicTacToeDescription, Game>();
     }   
 }

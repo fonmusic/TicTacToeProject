@@ -33,20 +33,21 @@ public class GameService : IGameService
             serviceResponse.Message = $"Game with id {id} not found.";
             return serviceResponse;
         }
+
         serviceResponse.Data = _mapper.Map<GetGameDto>(game);
         serviceResponse.Message = $"Game with id {id} found.";
         return serviceResponse;
     }
 
     public async Task<ServiceResponse<GetGameDto>> StartNewGame(StartNewGameDto newGame)
-    {   
+    {
         var serviceResponse = new ServiceResponse<GetGameDto>();
-        
-        var game = _mapper.Map<Game>(newGame); 
-        
+
+        var game = _mapper.Map<Game>(newGame);
+
         await _context.Games.AddAsync(game);
         await _context.SaveChangesAsync();
-        
+
         serviceResponse.Data = _mapper.Map<GetGameDto>(game);
         serviceResponse.Message = $"New game started.";
         return serviceResponse;
@@ -63,16 +64,7 @@ public class GameService : IGameService
             return serviceResponse;
         }
 
-        var ticTacToeGame = new TicTacToe
-        {
-            Description = new TicTacToeDescription
-            {
-                Board = game.Board,
-                NextPlayer = game.NextPlayer,
-                Winner = game.Winner,
-                GameState = game.GameState
-            }
-        };
+        var ticTacToeGame = _mapper.Map<TicTacToe>(game);
 
         if (!ticTacToeGame.MakeMove(updatedGame.Position))
         {
@@ -80,11 +72,8 @@ public class GameService : IGameService
             serviceResponse.Message = $"Invalid move.";
             return serviceResponse;
         }
-
-        game.Board = ticTacToeGame.Description.Board;
-        game.NextPlayer = ticTacToeGame.Description.NextPlayer;
-        game.Winner = ticTacToeGame.Description.Winner;
-        game.GameState = ticTacToeGame.Description.GameState;
+        
+        _mapper.Map(ticTacToeGame.Description, game);
 
         await _context.SaveChangesAsync();
 
