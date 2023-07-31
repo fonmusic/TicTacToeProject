@@ -4,11 +4,13 @@ public class GameService : IGameService
 {
     private readonly IMapper _mapper;
     private readonly DataContext _context;
+    private readonly TicTacToe _ticTacToe;
 
-    public GameService(IMapper mapper, DataContext context)
+    public GameService(IMapper mapper, DataContext context, TicTacToe ticTacToe)
     {
         _context = context;
         _mapper = mapper;
+        _ticTacToe = ticTacToe;
     }
 
     public async Task<ServiceResponse<List<GetGameDto>>> GetAllGames()
@@ -63,32 +65,38 @@ public class GameService : IGameService
             serviceResponse.Message = $"Game with id {updatedGame.Id} not found.";
             return serviceResponse;
         }
-
-        var ticTacToeGame = _mapper.Map<TicTacToe>(game);
-
-        if (!ticTacToeGame.MakeMove(updatedGame.Position))
+        
+        var ticTacToeDescription = _mapper.Map<TicTacToeDescription>(game);
+        
+        if (!_ticTacToe.MakeMove(updatedGame.Position, ticTacToeDescription))
         {
             serviceResponse.Success = false;
             serviceResponse.Message = $"Invalid move.";
             return serviceResponse;
         }
         
-        _mapper.Map(ticTacToeGame.Description, game);
-
+        _mapper.Map(ticTacToeDescription, game);
+        
         await _context.SaveChangesAsync();
-
+        
         serviceResponse.Data = _mapper.Map<GetGameDto>(game);
-        if (ticTacToeGame.Description.Winner != string.Empty)
-            serviceResponse.Message = $"Game over. {ticTacToeGame.Description.Winner} wins!";
-        else if (ticTacToeGame.Description.GameState == TicTacToeGameState.Draw)
-            serviceResponse.Message = $"Game over. Draw!";
-        else if (ticTacToeGame.Description.GameState == TicTacToeGameState.XMove)
-            serviceResponse.Message = $"X's move.";
-        else if (ticTacToeGame.Description.GameState == TicTacToeGameState.OMove)
-            serviceResponse.Message = $"O's move.";
-        else
-            serviceResponse.Message = $"Game updated.";
-
+        PrintUpdateMessage(updatedGame, game, serviceResponse);
         return serviceResponse;
+    }
+
+    private static void PrintUpdateMessage(UpdateGameDto updatedGame, Game game, ServiceResponse<GetGameDto> serviceResponse)
+    {
+        if (game.GameState == TicTacToeGameState.Draw)
+            serviceResponse.Message = $"Game with id {updatedGame.Id} ended in a draw.";
+        else if (game.GameState == TicTacToeGameState.XWin)
+            serviceResponse.Message = $"Game with id {updatedGame.Id} ended with X as the winner.";
+        else if (game.GameState == TicTacToeGameState.OWin)
+            serviceResponse.Message = $"Game with id {updatedGame.Id} ended with O as the winner.";
+        else if (game.GameState == TicTacToeGameState.XMove)
+            serviceResponse.Message = $"Game with id {updatedGame.Id} updated. X to move.";
+        else if (game.GameState == TicTacToeGameState.OMove)
+            serviceResponse.Message = $"Game with id {updatedGame.Id} updated. O to move.";
+        else
+            throw new Exception("Invalid game state.");
     }
 }

@@ -2,47 +2,46 @@ namespace TicTacToeLibrary;
 
 public class TicTacToe
 {
-    public TicTacToeDescription Description { get; set; } = new();
-    public bool MakeMove(int position)
+    public bool MakeMove(int position, TicTacToeDescription description)
     {
-        if (Description.Board[position] != ' ')
+        if (description.Board[position] != ' ')
             return false;
 
-        Description.Board = Description.Board[..position] + Description.NextPlayer[0] + Description.Board[(position + 1)..];
-        Description.NextPlayer = Description.NextPlayer == "X" ? "O" : "X";
-        Description.Winner = CheckForWinner();
-        Description.GameState = Description.Winner switch
+        description.Board = description.Board[..position] + description.NextPlayer[0] + description.Board[(position + 1)..];
+        description.NextPlayer = description.NextPlayer == "X" ? "O" : "X";
+        description.Winner = CheckForWinner(description);
+        description.GameState = description.Winner switch
         {
             "X" => TicTacToeGameState.XWin,
             "O" => TicTacToeGameState.OWin,
-            _ => Description.GameState == TicTacToeGameState.XMove ? TicTacToeGameState.OMove : TicTacToeGameState.XMove
+            _ => description.GameState == TicTacToeGameState.XMove ? TicTacToeGameState.OMove : TicTacToeGameState.XMove
         };
-        if (Description.Board.All(c => c != ' '))
-            Description.GameState = TicTacToeGameState.Draw;
+        if (description.Board.All(c => c != ' '))
+            description.GameState = TicTacToeGameState.Draw;
         return true;
     }
 
-    private string CheckForWinner()
+    private string CheckForWinner(TicTacToeDescription description)
     {
         // Check rows
         for (int i = 0; i < 9; i += 3)
         {
-            if (Description.Board[i] != ' ' && Description.Board[i] == Description.Board[i + 1] && Description.Board[i] == Description.Board[i + 2])
-                return Description.Board[i].ToString();
+            if (description.Board[i] != ' ' && description.Board[i] == description.Board[i + 1] && description.Board[i] == description.Board[i + 2])
+                return description.Board[i].ToString();
         }
 
         // Check columns
         for (int i = 0; i < 3; i++)
         {
-            if (Description.Board[i] != ' ' && Description.Board[i] == Description.Board[i + 3] && Description.Board[i] == Description.Board[i + 6])
-                return Description.Board[i].ToString();
+            if (description.Board[i] != ' ' && description.Board[i] == description.Board[i + 3] && description.Board[i] == description.Board[i + 6])
+                return description.Board[i].ToString();
         }
 
         // Check diagonals
-        if (Description.Board[0] != ' ' && Description.Board[0] == Description.Board[4] && Description.Board[0] == Description.Board[8])
-            return Description.Board[0].ToString();
-        if (Description.Board[2] != ' ' && Description.Board[2] == Description.Board[4] && Description.Board[2] == Description.Board[6])
-            return Description.Board[2].ToString();
+        if (description.Board[0] != ' ' && description.Board[0] == description.Board[4] && description.Board[0] == description.Board[8])
+            return description.Board[0].ToString();
+        if (description.Board[2] != ' ' && description.Board[2] == description.Board[4] && description.Board[2] == description.Board[6])
+            return description.Board[2].ToString();
         return string.Empty;
     }
 }
