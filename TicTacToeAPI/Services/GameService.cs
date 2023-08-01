@@ -4,9 +4,9 @@ public class GameService : IGameService
 {
     private readonly IMapper _mapper;
     private readonly DataContext _context;
-    private readonly TicTacToe _ticTacToe;
+    private readonly ITicTacToe _ticTacToe;
 
-    public GameService(IMapper mapper, DataContext context, TicTacToe ticTacToe)
+    public GameService(IMapper mapper, DataContext context, ITicTacToe ticTacToe)
     {
         _context = context;
         _mapper = mapper;

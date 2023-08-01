@@ -18,7 +18,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<IGameService, GameService>();
-builder.Services.AddScoped<TicTacToe>();
+builder.Services.AddScoped<ITicTacToe, TicTacToe>();
 
 var app = builder.Build();
 

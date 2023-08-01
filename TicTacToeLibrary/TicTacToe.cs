@@ -1,6 +1,6 @@
 namespace TicTacToeLibrary;
 
-public class TicTacToe
+public class TicTacToe : ITicTacToe
 {
     public bool MakeMove(int position, TicTacToeDescription description)
     {
