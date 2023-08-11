@@ -7,4 +7,24 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'TicTacToe.UI';
+
+  constructor() {
+    console.log('App Component');
+  }
+
+  showBoard = false;
+  buttonBoardLabel = 'Start Game';
+
+  showListOfGames = false;
+  buttonListOfGamesLabel = 'Show List of Games';
+
+  toggleBoard() {
+    this.showBoard = !this.showBoard;
+    this.buttonBoardLabel = this.showBoard ? 'End Game' : 'Start Game';
+  }
+
+  toggleListOfGames() {
+    this.showListOfGames = !this.showListOfGames;
+    this.buttonListOfGamesLabel = this.showListOfGames ? 'Hide List of Games' : 'Show List of Games';
+  }
 }

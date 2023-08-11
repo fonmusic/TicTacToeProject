@@ -1,5 +1,12 @@
 <div class="app-container">
   <div class="container d-flex flex-column min-vh-100 justify-content-center align-items-center">
     <h1>TicTacToe</h1>
+
+    <!-- Toggle board -->
+    <button class="btn" (click)="toggleBoard()">{{buttonBoardLabel}}</button>
+
+    <!-- Toggle list of games -->
+    <button class="btn" (click)="toggleListOfGames()">{{buttonListOfGamesLabel}}</button>
+
   </div>
 </div>
