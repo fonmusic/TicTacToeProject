@@ -23,9 +23,6 @@ public class GameController : ControllerBase
     public async Task<ActionResult<ServiceResponse<GetGameDto>>> GetGameById(int id)
     {
         var result = _gameService.GetGameById(id);
-        if (result is null)
-            return NotFound();
-
         return Ok(await result);
     }
 
@@ -41,9 +38,6 @@ public class GameController : ControllerBase
     public async Task<ActionResult<ServiceResponse<GetGameDto>>> UpdateGame(UpdateGameDto updatedGame)
     {
         var result = _gameService.UpdateGame(updatedGame);
-        if (result is null)
-            return NotFound();
-
         return Ok(await result);
     }
 }

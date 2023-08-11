@@ -3,7 +3,7 @@ public class Game
 {
     public int Id { get; set; }
     public required string Board { get; set; }
-    public string NextPlayer { get; set; } = string.Empty;
-    public string Winner { get; set; } = string.Empty;
+    public required string NextPlayer { get; set; }
+    public required string Winner { get; set; }
     public TicTacToeGameState GameState { get; set; }
 }
