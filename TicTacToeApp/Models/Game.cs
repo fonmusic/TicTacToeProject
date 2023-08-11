@@ -1,5 +1,3 @@
-using TicTacToeLibrary;
-
 namespace TicTacToeApp.Models;
 
 public class Game
