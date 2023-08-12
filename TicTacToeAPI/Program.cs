@@ -1,11 +1,3 @@
-global using AutoMapper;
-global using Microsoft.EntityFrameworkCore;
-global using TicTacToeAPI.Models;
-global using TicTacToeAPI.Dtos.Game;
-global using TicTacToeAPI.Services;
-global using TicTacToeLibrary;
-global using TicTacToeAPI.Data;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
