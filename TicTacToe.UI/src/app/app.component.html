@@ -8,5 +8,15 @@
     <!-- Toggle list of games -->
     <button class="btn" (click)="toggleListOfGames()">{{buttonListOfGamesLabel}}</button>
 
+    <!-- game-list component -->
+    <ng-container *ngIf="showListOfGames">
+      <app-game-list></app-game-list>
+    </ng-container>
+
+    <!-- game-board component -->
+    <ng-container *ngIf="showBoard">
+      <app-board></app-board>
+    </ng-container>
+
   </div>
 </div>
