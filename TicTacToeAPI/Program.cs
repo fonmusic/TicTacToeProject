@@ -11,6 +11,13 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<ITicTacToe, TicTacToe>();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("NgOrigins", policy =>
+    {
+        policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200");
+    });
+});
 
 var app = builder.Build();
 
@@ -20,6 +27,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("NgOrigins");
 
 app.UseHttpsRedirection();
 
