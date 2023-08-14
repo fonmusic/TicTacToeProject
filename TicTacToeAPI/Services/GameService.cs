@@ -5,6 +5,9 @@ public class GameService : IGameService
     private readonly IMapper _mapper;
     private readonly DataContext _context;
     private readonly ITicTacToe _ticTacToe;
+    
+    private const int MinPosition = 0;
+    private const int MaxPosition = 8;
 
     public GameService(IMapper mapper, DataContext context, ITicTacToe ticTacToe)
     {
@@ -68,7 +71,9 @@ public class GameService : IGameService
         
         var ticTacToeDescription = _mapper.Map<TicTacToeDescription>(game);
         
-        if (!_ticTacToe.MakeMove(updatedGame.Position, ticTacToeDescription))
+        if (!_ticTacToe.MakeMove(updatedGame.Position, ticTacToeDescription) 
+            || updatedGame.Position < MinPosition
+            || updatedGame.Position > MaxPosition)
         {
             serviceResponse.Success = false;
             serviceResponse.Message = $"Invalid move.";
@@ -86,17 +91,14 @@ public class GameService : IGameService
 
     private static void PrintUpdateMessage(UpdateGameDto updatedGame, Game game, ServiceResponse<GetGameDto> serviceResponse)
     {
-        if (game.GameState == TicTacToeGameState.Draw)
-            serviceResponse.Message = $"Game with id {updatedGame.Id} ended in a draw.";
-        else if (game.GameState == TicTacToeGameState.XWin)
-            serviceResponse.Message = $"Game with id {updatedGame.Id} ended with X as the winner.";
-        else if (game.GameState == TicTacToeGameState.OWin)
-            serviceResponse.Message = $"Game with id {updatedGame.Id} ended with O as the winner.";
-        else if (game.GameState == TicTacToeGameState.XMove)
-            serviceResponse.Message = $"Game with id {updatedGame.Id} updated. X to move.";
-        else if (game.GameState == TicTacToeGameState.OMove)
-            serviceResponse.Message = $"Game with id {updatedGame.Id} updated. O to move.";
-        else
-            throw new Exception("Invalid game state.");
+        serviceResponse.Message = game.GameState switch
+        {
+            TicTacToeGameState.Draw => $"Game with id {updatedGame.Id} ended in a draw.",
+            TicTacToeGameState.XWin => $"Game with id {updatedGame.Id} ended with X as the winner.",
+            TicTacToeGameState.OWin => $"Game with id {updatedGame.Id} ended with O as the winner.",
+            TicTacToeGameState.XMove => $"Game with id {updatedGame.Id} updated. X to move.",
+            TicTacToeGameState.OMove => $"Game with id {updatedGame.Id} updated. O to move.",
+            _ => throw new Exception("Invalid game state.")
+        };
     }
 }
