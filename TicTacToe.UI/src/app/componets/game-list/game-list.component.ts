@@ -23,4 +23,21 @@ export class GameListComponent {
       }
     });
   }
+
+  gameStateToString(gameState: number): string {
+    switch (gameState) {
+      case 0:
+        return 'X Move';
+      case 1:
+        return 'O Move';
+      case 2:
+        return 'X Win';
+      case 3:
+        return 'O Win';
+      case 4:
+        return 'Draw';
+      default:
+        return 'Unknown';
+    }
+  }
 }

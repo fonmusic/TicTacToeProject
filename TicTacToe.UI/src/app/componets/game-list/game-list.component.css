@@ -1,8 +1,6 @@
 .game-list-container {
   background: linear-gradient(118.38deg, #29323c -4.6%,
   #9a9ea1 200.44%);
-  height: 30vh;
-  width: 30vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,8 +9,11 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-
 h5 {
   color: #000000;
+  text-align: center;
+}
+
+.table.table-bordered td {
   text-align: center;
 }
