@@ -71,9 +71,8 @@ public class GameService : IGameService
         
         var ticTacToeDescription = _mapper.Map<TicTacToeDescription>(game);
         
-        if (!_ticTacToe.MakeMove(updatedGame.Position, ticTacToeDescription) 
-            || updatedGame.Position < MinPosition
-            || updatedGame.Position > MaxPosition)
+        if (updatedGame.Position is < MinPosition or > MaxPosition ||
+            !_ticTacToe.MakeMove(updatedGame.Position, ticTacToeDescription))
         {
             serviceResponse.Success = false;
             serviceResponse.Message = $"Invalid move.";

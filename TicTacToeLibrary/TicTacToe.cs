@@ -18,20 +18,22 @@ public class TicTacToe : ITicTacToe
         };
         if (description.Board.All(c => c != ' '))
             description.GameState = TicTacToeGameState.Draw;
+        if (description.GameState is TicTacToeGameState.XWin or TicTacToeGameState.OWin or TicTacToeGameState.Draw)
+            description.NextPlayer = string.Empty;
         return true;
     }
 
-    private string CheckForWinner(TicTacToeDescription description)
+    private static string CheckForWinner(TicTacToeDescription description)
     {
         // Check rows
-        for (int i = 0; i < 9; i += 3)
+        for (var i = 0; i < 9; i += 3)
         {
             if (description.Board[i] != ' ' && description.Board[i] == description.Board[i + 1] && description.Board[i] == description.Board[i + 2])
                 return description.Board[i].ToString();
         }
 
         // Check columns
-        for (int i = 0; i < 3; i++)
+        for (var i = 0; i < 3; i++)
         {
             if (description.Board[i] != ' ' && description.Board[i] == description.Board[i + 3] && description.Board[i] == description.Board[i + 6])
                 return description.Board[i].ToString();
