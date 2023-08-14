@@ -10,6 +10,7 @@
           <th scope="col">Next Player</th>
           <th scope="col">Winner</th>
           <th scope="col">Status</th>
+          <th scope="col">Action</th>
         </tr>
         </thead>
         <tbody>
@@ -18,6 +19,7 @@
           <td>{{game.description.nextPlayer}}</td>
           <td>{{game.description.winner}}</td>
           <td>{{gameStateToString(game.description.gameState)}}</td>
+          <td><button class="btn btn-outline-secondary" (click)="openGameBoard(game)">Open</button></td>
         </tbody>
       </table>
     </div>

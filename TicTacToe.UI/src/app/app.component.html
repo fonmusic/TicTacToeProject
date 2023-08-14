@@ -7,15 +7,15 @@
       <app-game-list></app-game-list>
     </ng-container>
 
-    <!-- Toggle board -->
-    <button class="btn" (click)="toggleBoard()" *ngIf="!showListOfGames">{{buttonBoardLabel}}</button>
-    <!-- Toggle list of games -->
-    <button class="btn" (click)="toggleListOfGames()" *ngIf="!showBoard">{{buttonListOfGamesLabel}}</button>
-
     <!-- game-board component -->
     <ng-container *ngIf="showBoard">
       <app-board></app-board>
     </ng-container>
+
+    <!-- Toggle board -->
+    <button class="btn" (click)="toggleBoard()" *ngIf="!showListOfGames">{{buttonBoardLabel}}</button>
+    <!-- Toggle list of games -->
+    <button class="btn" (click)="toggleListOfGames()" *ngIf="!showBoard">{{buttonListOfGamesLabel}}</button>
 
   </div>
 </div>

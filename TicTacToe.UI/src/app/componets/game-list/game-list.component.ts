@@ -11,6 +11,7 @@ export class GameListComponent {
   constructor(private gameService: GameService) { }
 
   games: GetGameDto[] = [];
+  selectedGame: GetGameDto | undefined;
 
   ngOnInit(): void {
     this.getAllGames();
@@ -40,4 +41,9 @@ export class GameListComponent {
         return 'Unknown';
     }
   }
+
+openGameBoard(game: GetGameDto) {
+    this.selectedGame = game;
+  }
+
 }
